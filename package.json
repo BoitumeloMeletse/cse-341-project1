@@ -1,0 +1,25 @@
+{
+  "name": "cse-341-project1",
+  "version": "1.0.0",
+  "description": "My First Project1",
+  "keywords": [
+    "Boitumelo",
+    "Hebert",
+    "Meletse"
+  ],
+  "homepage": "https://github.com/BoitumeloMeletse/cse-341-project1#readme",
+  "bugs": {
+    "url": "https://github.com/BoitumeloMeletse/cse-341-project1/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BoitumeloMeletse/cse-341-project1.git"
+  },
+  "license": "ISC",
+  "author": "Boitumelo Hebert Meletse",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
