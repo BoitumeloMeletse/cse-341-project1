@@ -3,12 +3,12 @@ dotenv.config();
 
 const MongoClient = require('mongodb').MongoClient;
 
-let databse;
+let database;
 
 const initDB = (callback) => {
-    if (databse) {
+    if (database) {
         console.log('Database is already initialized!');
-        return callback(null, databse);
+        return callback(null, database);  // Fixed typo here (changed 'databse' to 'database')
     }
     MongoClient.connect(process.env.MONGODB_URL)
     .then((client) => {
@@ -20,7 +20,14 @@ const initDB = (callback) => {
     });  
 };
 
+const getDatabase = () => {
+    if (!database) {
+        throw new Error('Database not initialized');
+    }
+    return database;
+};
+
 module.exports = {
     initDB,
-    getdatabase,
+    getDatabase,  // Make sure the case matches when you import/use it
 };
