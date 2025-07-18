@@ -1,44 +1,39 @@
 const mongodb = require('../data/database');
-const ObjectId = require('mongodb').ObjectId;
+const { ObjectId } = require('mongodb');
 
+// GET all users
 const getAll = async (req, res) => {
-    try {
-        const database = mongodb.getDatabase();
-        const result = database.db('project1').collection('users').find();
-        const users = await result.toArray();
-
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(users);
-    } catch (error) {
-        console.error('Error in getAll:', error);
-        res.status(500).json({ error: 'Failed to retrieve users' });
-    }
+  try {
+    const db = mongodb.getDatabase();
+    const users = await db.collection('users').find().toArray();
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('Error in getAll:', error);
+    res.status(500).json({ error: 'Failed to retrieve users' });
+  }
 };
 
+// GET single user by ID
 const getSingle = async (req, res) => {
-    try {
-        if (!ObjectId.isValid(req.params.id)) {
-            return res.status(400).json({ error: 'Invalid user ID format' });
-        }
+  try {
+    const { id } = req.params;
 
-        const userId = new ObjectId(req.params.id);
-        const database = mongodb.getDatabase();
-        const result = database.db('project1').collection('users').find({ _id: userId });
-        const users = await result.toArray();
-
-        if (users.length === 0) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(users[0]);
-    } catch (error) {
-        console.error('Error in getSingle:', error);
-        res.status(500).json({ error: 'Failed to retrieve user' });
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ error: 'Invalid user ID format' });
     }
+
+    const db = mongodb.getDatabase();
+    const user = await db.collection('users').findOne({ _id: new ObjectId(id) });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error('Error in getSingle:', error);
+    res.status(500).json({ error: 'Failed to retrieve user' });
+  }
 };
 
-module.exports = {
-    getAll,
-    getSingle
-};
+module.exports = { getAll, getSingle };
