@@ -12,7 +12,7 @@ const initDB = async (callback) => {
 
   try {
     const client = await MongoClient.connect(process.env.MONGODB_URL);
-    database = client.db('project1'); // store DB directly
+    database = client.db('project1'); // store DB directly rv
     console.log('Database connection established.');
     callback(null, database);
   } catch (err) {
