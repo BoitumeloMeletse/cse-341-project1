@@ -2,15 +2,14 @@ const swaggerAutogen = require('swagger-autogen')();
 
 const doc = {
   info: {
-    title: 'My API',
-    description: 'Users Api',
+    title: 'Contacts API',
+    description: 'API for managing contacts.',
   },
-  host: 'localhost:3000',
+  host: 'https://cse-341-project1-bpcj.onrender.com', // Change to Render domain before upload
   schemes: ['http', 'https'],
 };
 
 const outputFile = './swagger_output.json';
 const endpointsFiles = ['./routes/index.js'];
 
-//  this will generate the swagger.json
 swaggerAutogen(outputFile, endpointsFiles, doc);

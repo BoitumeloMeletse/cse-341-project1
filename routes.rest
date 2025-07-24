@@ -1,46 +1,35 @@
-// LOCALHOST
+### Get all contacts
+GET http://localhost:3000/contacts
 
-### Get all users
-GET http://localhost:3000/users
+### Get contact by ID
+GET http://localhost:3000/contacts/688197a2ec3697314883aa48
 
-### Get a user by ID
-GET http://localhost:3000/users/686dcc24236d6a6d5140de6b
-
-### Create a new user
-POST http://localhost:3000/users
+### Create contact
+POST http://localhost:3000/contacts
 Content-Type: application/json
 
 {
-  "email": "test5@example.com",
-  "username": "test5@test.com",
-  "name": "Hello1",
-  "ipaddress": "94.121.168.53"
+  "firstName": "Tumi",
+  "lastName": "Meletse",
+  "email": "tumi@example.com",
+  "favoriteColor": "blue",
+  "birthday": "1999-01-01"
 }
 
-### Add a user with custom data (MongoDB will auto-generate _id)
-POST http://localhost:3000/users
+### Update contact
+PUT http://localhost:3000/contacts/688197a2ec3697314883aa48
 Content-Type: application/json
 
 {
-  "email": "test@test.com",
-  "username": "test1@test.com",
-  "name": "Hello1",
-  "ipaddress": "94.121.163.53"
-}
-
-### Update a user by ID
-PUT http://localhost:3000/users/686dcc24236d6a6d5140de6b
-Content-Type: application/json
-
-{
+  "firstName": "Updated",
+  "lastName": "User",
   "email": "updated@example.com",
-  "username": "updatedUser",
-  "name": "Updated Name",
-  "ipaddress": "94.121.168.99"
+  "favoriteColor": "green",
+  "birthday": "2000-12-31"
 }
 
-### Delete a user by ID
-DELETE http://localhost:3000/users/686dcc24236d6a6d5140de6b
+### Delete contact
+DELETE http://localhost:3000/contacts/68819860ec3697314883aa4bE
 
-### Test Swagger API Docs
+### Swagger docs
 GET http://localhost:3000/api-docs

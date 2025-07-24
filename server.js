@@ -25,8 +25,9 @@ mongodb.initDB((err) => {
         console.error(err);
     }
     else {
-        app.listen(part, () => {console.log(`Running on part ${part}`)});
+        app.listen(part, () => {
+            console.log('Database connection established.');
+            console.log(`Running on part ${part}`)});
     }
 
 });
-
