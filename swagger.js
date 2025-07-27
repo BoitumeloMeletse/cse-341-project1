@@ -2,10 +2,10 @@ const swaggerAutogen = require('swagger-autogen')();
 
 const doc = {
   info: {
-    title: 'Contacts API',
-    description: 'API for managing contacts.',
+    title: 'Contacts & Tasks API',
+    description: 'API for managing contact and task data including CRUD operations.',
   },
-  host: 'https://cse-341-project1-bpcj.onrender.com', // Change to Render domain before upload
+  host: 'https://localhost:3000', // Change to Render domain before upload
   schemes: ['http', 'https'],
 };
 

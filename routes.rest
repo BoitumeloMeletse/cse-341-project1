@@ -1,8 +1,13 @@
 ### Get all contacts
 GET http://localhost:3000/contacts
+### Get all tasks
+GET http://localhost:3000/tasks
 
 ### Get contact by ID
 GET http://localhost:3000/contacts/688197a2ec3697314883aa48
+
+### Get taks by ID
+GET http://localhost:3000/tasks/68857044648d07b41e2225a7
 
 ### Create contact
 POST http://localhost:3000/contacts
@@ -14,6 +19,22 @@ Content-Type: application/json
   "email": "tumi@example.com",
   "favoriteColor": "blue",
   "birthday": "1999-01-01"
+}
+
+### Create task
+POST http://localhost:3000/tasks
+Content-Type: application/json
+
+{
+  "title": "Computer2",
+  "description": "operating 2 systems",
+  "assignedTo": "test2@test2.com",
+  "dueDate": "2025-07-10",
+  "priority": "High",
+  "status": "In Progress",
+  "createdAt": "2025-06-19",
+  "updatedAt": "2025-06-18"
+
 }
 
 ### Update contact
@@ -28,8 +49,24 @@ Content-Type: application/json
   "birthday": "2000-12-31"
 }
 
+### Update tasks
+PUT http://localhost:3000/tasks/68856cd5648d07b41e2225a5
+Content-Type: application/json
+
+{
+  "title": "LAPTOP",
+  "description": "Windows 11",
+  "assignedTo": "test2@test2.com",
+  "dueDate": "2025-05-11",
+  "priority": "High",
+  "status": "In Progress",
+  "createdAt": "2025-06-19",
+  "updatedAt": "2025-06-18"
+
+}
+
 ### Delete contact
-DELETE http://localhost:3000/contacts/68819860ec3697314883aa4bE
+DELETE http://localhost:3000/contacts/68856cd5648d07b41e2225a5
 
 ### Swagger docs
 GET http://localhost:3000/api-docs

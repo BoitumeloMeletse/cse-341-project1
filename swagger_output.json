@@ -1,13 +1,13 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Contacts API",
-    "description": "API for managing contact data including CRUD operations.",
+    "title": "Contacts & Tasks API",
+    "description": "API for managing contact and task data including CRUD operations.",
     "version": "1.0.0"
   },
-  "host": "cse-341-project1-bpcj.onrender.com",
+  "host": "localhost:3000",
   "basePath": "/",
-  "schemes": ["https"],
+  "schemes": ["http"],
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
@@ -15,15 +15,12 @@
       "get": {
         "tags": ["Contacts"],
         "summary": "Get all contacts",
-        "description": "Returns a list of all contacts",
         "responses": {
           "200": {
             "description": "A list of contacts",
             "schema": {
               "type": "array",
-              "items": {
-                "$ref": "#/definitions/Contact"
-              }
+              "items": { "$ref": "#/definitions/Contact" }
             }
           }
         }
@@ -36,15 +33,11 @@
             "in": "body",
             "name": "body",
             "required": true,
-            "schema": {
-              "$ref": "#/definitions/Contact"
-            }
+            "schema": { "$ref": "#/definitions/Contact" }
           }
         ],
         "responses": {
-          "201": {
-            "description": "Contact created"
-          }
+          "201": { "description": "Contact created" }
         }
       }
     },
@@ -53,19 +46,12 @@
         "tags": ["Contacts"],
         "summary": "Get contact by ID",
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
+          { "name": "id", "in": "path", "required": true, "type": "string" }
         ],
         "responses": {
           "200": {
             "description": "Contact details",
-            "schema": {
-              "$ref": "#/definitions/Contact"
-            }
+            "schema": { "$ref": "#/definitions/Contact" }
           }
         }
       },
@@ -73,42 +59,97 @@
         "tags": ["Contacts"],
         "summary": "Update contact by ID",
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
+          { "name": "id", "in": "path", "required": true, "type": "string" },
           {
             "in": "body",
             "name": "body",
             "required": true,
-            "schema": {
-              "$ref": "#/definitions/Contact"
-            }
+            "schema": { "$ref": "#/definitions/Contact" }
           }
         ],
         "responses": {
-          "200": {
-            "description": "Contact updated"
-          }
+          "200": { "description": "Contact updated" }
         }
       },
       "delete": {
         "tags": ["Contacts"],
         "summary": "Delete contact by ID",
         "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "200": { "description": "Contact deleted" }
+        }
+      }
+    },
+    "/tasks": {
+      "get": {
+        "tags": ["Tasks"],
+        "summary": "Get all tasks",
+        "responses": {
+          "200": {
+            "description": "A list of tasks",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Task" }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Tasks"],
+        "summary": "Create a new task",
+        "parameters": [
           {
-            "name": "id",
-            "in": "path",
+            "in": "body",
+            "name": "body",
             "required": true,
-            "type": "string"
+            "schema": { "$ref": "#/definitions/Task" }
           }
         ],
         "responses": {
+          "204": { "description": "Task created" }
+        }
+      }
+    },
+    "/tasks/{id}": {
+      "get": {
+        "tags": ["Tasks"],
+        "summary": "Get task by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
+        "responses": {
           "200": {
-            "description": "Contact deleted"
+            "description": "Task details",
+            "schema": { "$ref": "#/definitions/Task" }
           }
+        }
+      },
+      "put": {
+        "tags": ["Tasks"],
+        "summary": "Update task by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Task" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Task updated" }
+        }
+      },
+      "delete": {
+        "tags": ["Tasks"],
+        "summary": "Delete task by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "200": { "description": "Task deleted" }
         }
       }
     }
@@ -117,24 +158,34 @@
     "Contact": {
       "type": "object",
       "properties": {
-        "firstName": {
-          "type": "string"
-        },
-        "lastName": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "favoriteColor": {
-          "type": "string"
-        },
-        "birthday": {
-          "type": "string",
-          "format": "date"
-        }
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "email": { "type": "string" },
+        "favoriteColor": { "type": "string" },
+        "birthday": { "type": "string", "format": "date" }
       },
       "required": ["firstName", "lastName", "email"]
+    },
+    "Task": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "assignedTo": { "type": "string" },
+        "dueDate": { "type": "string", "format": "date" },
+        "priority": { "type": "string", "enum": ["Low", "Medium", "High"]},
+        "status": { "type": "string", "enum": ["Not Started", "In Progress", "Completed"]},
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "title",
+        "description",
+        "assignedTo",
+        "dueDate",
+        "priority",
+        "status"
+      ]
     }
   }
 }
