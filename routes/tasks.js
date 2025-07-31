@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const tasksController = require("../controllers/tasks");
 
+const{ isAuthenticated } = require("../middleware/authenticate");
+
 // GET all contacts
 router.get("/", tasksController.getAll);
 
@@ -9,12 +11,12 @@ router.get("/", tasksController.getAll);
 router.get("/:id", tasksController.getSingle);
 
 // POST create contact
-router.post("/", tasksController.createTask);
+router.post("/", isAuthenticated, tasksController.createTask);
 
 // PUT update contact
-router.put("/:id", tasksController.updateTask);
+router.put("/:id", isAuthenticated, tasksController.updateTask);
 
 // DELETE contact
-router.delete("/:id", tasksController.deleteTask);
+router.delete("/:id", isAuthenticated, tasksController.deleteTask);
 
 module.exports = router;
