@@ -5,7 +5,7 @@ const doc = {
     title: 'Contacts & Tasks API',
     description: 'API for managing contact and task data including CRUD operations.',
   },
-  host: 'https://localhost:3000', // Change to Render domain before upload
+  host: 'cse-341-project1-0cop.onrender.com', // Change to Render domain before upload
   schemes: ['http', 'https'],
 };
 
