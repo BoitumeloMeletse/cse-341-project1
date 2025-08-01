@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongodb = require('./data/database');
 const passport = require('passport');
 const session = require('express-session'); 
+require('dotenv').config();
 const GitHubStrategy = require('passport-github2').Strategy;
 const cors = require('cors');
 
