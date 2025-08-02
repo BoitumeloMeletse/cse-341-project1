@@ -1,3 +1,4 @@
+
 {
   "swagger": "2.0",
   "info": {
@@ -7,405 +8,185 @@
   },
   "host": "cse-341-project1-0cop.onrender.com",
   "basePath": "/",
-  "schemes": [
-    "http",
-    "https"
-  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
   "paths": {
-    "/login": {
+    "/contacts": {
       "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/logout": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api-docs": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/contacts/": {
-      "get": {
-        "tags": [
-          "Contacts"
-        ],
-        "description": "",
+        "tags": ["Contacts"],
+        "summary": "Get all contacts",
         "responses": {
           "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
+            "description": "A list of contacts",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Contact" }
+            }
           }
         }
       },
       "post": {
-        "tags": [
-          "Contacts"
-        ],
-        "description": "",
+        "tags": ["Contacts"],
+        "summary": "Create a new contact",
         "parameters": [
           {
-            "name": "body",
             "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "firstName": {
-                  "example": "any"
-                },
-                "lastName": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "favoriteColor": {
-                  "example": "any"
-                },
-                "birthday": {
-                  "example": "any"
-                }
-              }
-            }
+            "name": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Contact" }
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "201": { "description": "Contact created" }
         }
       }
     },
     "/contacts/{id}": {
       "get": {
-        "tags": [
-          "Contacts"
-        ],
-        "description": "",
+        "tags": ["Contacts"],
+        "summary": "Get contact by ID",
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
+          { "name": "id", "in": "path", "required": true, "type": "string" }
         ],
         "responses": {
           "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+            "description": "Contact details",
+            "schema": { "$ref": "#/definitions/Contact" }
           }
         }
       },
       "put": {
-        "tags": [
-          "Contacts"
-        ],
-        "description": "",
+        "tags": ["Contacts"],
+        "summary": "Update contact by ID",
         "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" },
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
             "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "firstName": {
-                  "example": "any"
-                },
-                "lastName": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "favoriteColor": {
-                  "example": "any"
-                },
-                "birthday": {
-                  "example": "any"
-                }
-              }
-            }
+            "name": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Contact" }
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "Contact updated" }
         }
       },
       "delete": {
-        "tags": [
-          "Contacts"
-        ],
-        "description": "",
+        "tags": ["Contacts"],
+        "summary": "Delete contact by ID",
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
+          { "name": "id", "in": "path", "required": true, "type": "string" }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "Contact deleted" }
         }
       }
     },
-    "/tasks/": {
+    "/tasks": {
       "get": {
-        "tags": [
-          "Tasks"
-        ],
-        "description": "",
+        "tags": ["Tasks"],
+        "summary": "Get all tasks",
         "responses": {
           "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
+            "description": "A list of tasks",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Task" }
+            }
           }
         }
       },
       "post": {
-        "tags": [
-          "Tasks"
-        ],
-        "description": "",
+        "tags": ["Tasks"],
+        "summary": "Create a new task",
         "parameters": [
           {
-            "name": "body",
             "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "title": {
-                  "example": "any"
-                },
-                "description": {
-                  "example": "any"
-                },
-                "assignedTo": {
-                  "example": "any"
-                },
-                "dueDate": {
-                  "example": "any"
-                },
-                "priority": {
-                  "example": "any"
-                },
-                "status": {
-                  "example": "any"
-                },
-                "createdAt": {
-                  "example": "any"
-                },
-                "updatedAt": {
-                  "example": "any"
-                }
-              }
-            }
+            "name": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Task" }
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "204": { "description": "Task created" }
         }
       }
     },
     "/tasks/{id}": {
       "get": {
-        "tags": [
-          "Tasks"
-        ],
-        "description": "",
+        "tags": ["Tasks"],
+        "summary": "Get task by ID",
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
+          { "name": "id", "in": "path", "required": true, "type": "string" }
         ],
         "responses": {
           "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+            "description": "Task details",
+            "schema": { "$ref": "#/definitions/Task" }
           }
         }
       },
       "put": {
-        "tags": [
-          "Tasks"
-        ],
-        "description": "",
+        "tags": ["Tasks"],
+        "summary": "Update task by ID",
         "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" },
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
             "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "title": {
-                  "example": "any"
-                },
-                "description": {
-                  "example": "any"
-                },
-                "assignedTo": {
-                  "example": "any"
-                },
-                "dueDate": {
-                  "example": "any"
-                },
-                "priority": {
-                  "example": "any"
-                },
-                "status": {
-                  "example": "any"
-                },
-                "createdAt": {
-                  "example": "any"
-                },
-                "updatedAt": {
-                  "example": "any"
-                }
-              }
-            }
+            "name": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Task" }
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "Task updated" }
         }
       },
       "delete": {
-        "tags": [
-          "Tasks"
-        ],
-        "description": "",
+        "tags": ["Tasks"],
+        "summary": "Delete task by ID",
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
+          { "name": "id", "in": "path", "required": true, "type": "string" }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "Task deleted" }
         }
       }
+    }
+  },
+  "definitions": {
+    "Contact": {
+      "type": "object",
+      "properties": {
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "email": { "type": "string" },
+        "favoriteColor": { "type": "string" },
+        "birthday": { "type": "string", "format": "date" }
+      },
+      "required": ["firstName", "lastName", "email"]
+    },
+    "Task": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "assignedTo": { "type": "string" },
+        "dueDate": { "type": "string", "format": "date" },
+        "priority": { "type": "string", "enum": ["Low", "Medium", "High"]},
+        "status": { "type": "string", "enum": ["Not Started", "In Progress", "Completed"]},
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "title",
+        "description",
+        "assignedTo",
+        "dueDate",
+        "priority",
+        "status"
+      ]
     }
   }
 }

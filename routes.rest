@@ -1,16 +1,16 @@
 ### Get all contacts
-GET http://localhost:3000/contacts
+GET cse-341-project1-0cop.onrender.com/contacts
 ### Get all tasks
-GET http://localhost:3000/tasks
+GET cse-341-project1-0cop.onrender.com/tasks
 
 ### Get contact by ID
-GET http://localhost:3000/contacts/688197a2ec3697314883aa48
+GET cse-341-project1-0cop.onrender.com/contacts/688197a2ec3697314883aa48
 
 ### Get taks by ID
-GET http://localhost:3000/tasks/68857044648d07b41e2225a7
+GET cse-341-project1-0cop.onrender.com/tasks/68857044648d07b41e2225a7
 
 ### Create contact
-POST http://localhost:3000/contacts
+POST cse-341-project1-0cop.onrender.com/contacts
 Content-Type: application/json
 
 {
@@ -22,7 +22,7 @@ Content-Type: application/json
 }
 
 ### Create task
-POST http://localhost:3000/tasks
+POST cse-341-project1-0cop.onrender.com/tasks
 Content-Type: application/json
 
 {
@@ -38,7 +38,7 @@ Content-Type: application/json
 }
 
 ### Update contact
-PUT http://localhost:3000/contacts/688197a2ec3697314883aa48
+PUT cse-341-project1-0cop.onrender.com/contacts/688197a2ec3697314883aa48
 Content-Type: application/json
 
 {
@@ -50,7 +50,7 @@ Content-Type: application/json
 }
 
 ### Update tasks
-PUT http://localhost:3000/tasks/68856cd5648d07b41e2225a5
+PUT cse-341-project1-0cop.onrender.com/tasks/68856cd5648d07b41e2225a5
 Content-Type: application/json
 
 {
@@ -66,7 +66,7 @@ Content-Type: application/json
 }
 
 ### Delete contact
-DELETE http://localhost:3000/contacts/68856cd5648d07b41e2225a5
+DELETE cse-341-project1-0cop.onrender.com/contacts/68856cd5648d07b41e2225a5
 
 ### Swagger docs
-GET http://localhost:3000/api-docs
+GET cse-341-project1-0cop.onrender.com/api-docs
