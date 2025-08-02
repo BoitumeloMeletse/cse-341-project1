@@ -1,4 +1,4 @@
-{ 
+{
   "swagger": "2.0",
   "info": {
     "title": "Contacts & Tasks API",
@@ -108,7 +108,7 @@
           }
         ],
         "responses": {
-          "204": { "description": "Task created" }
+          "201": { "description": "Task created" }
         }
       }
     },
@@ -173,8 +173,8 @@
         "description": { "type": "string" },
         "assignedTo": { "type": "string" },
         "dueDate": { "type": "string", "format": "date" },
-        "priority": { "type": "string", "enum": ["Low", "Medium", "High"]},
-        "status": { "type": "string", "enum": ["Not Started", "In Progress", "Completed"]},
+        "priority": { "type": "string", "enum": ["Low", "Medium", "High"] },
+        "status": { "type": "string", "enum": ["Not Started", "In Progress", "Completed"] },
         "createdAt": { "type": "string", "format": "date-time" },
         "updatedAt": { "type": "string", "format": "date-time" }
       },
@@ -188,4 +188,4 @@
       ]
     }
   }
-}                       
+}
