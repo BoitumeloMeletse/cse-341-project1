@@ -35,7 +35,7 @@ app
         next();
     })
     .use(cors({ methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH' ]}))
-    .use(cors({ origin: '*'}))
+    .use(cors({ origin: 'https://cse-341-project1-0cop.onrender.com'}))
     .use("/", require('./routes/index.js'));
 
 
