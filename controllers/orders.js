@@ -3,12 +3,14 @@ const Order = require('../models/order');
 
 async function getAll(req, res) {
   try {
-    const orders = await Order.find();
+    const orders = await Order.find(); // using mongoose
     res.status(200).json(orders);
-  } catch {
+  } catch (err) {
+    console.error('Error in getAll:', err); // ✅ log the real error
     res.status(500).json({ error: "Failed to retrieve orders" });
   }
 }
+
 
 async function getSingle(req, res) {
   const { id } = req.params;

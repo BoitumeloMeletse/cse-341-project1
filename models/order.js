@@ -1,16 +1,9 @@
-// models/order.js
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-  orderItems: [{ 
-    type: String, 
-    required: true,
-    validate: {
-      validator: function(items) {
-        return items && items.length > 0;
-      },
-      message: "At least one order item is required"
-    }
+  orderItems: [{
+    type: String,
+    required: true
   }],
   orderStatus: {
     type: String,
@@ -22,11 +15,13 @@ const orderSchema = new mongoose.Schema({
     enum: ['Dine-in', 'Take-out', 'Delivery'],
     required: true
   },
-  createdAt: { type: Date, default: Date.now }
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
-// Add static validation method
-orderSchema.statics.validate = function(payload) {
+orderSchema.statics.validate = function (payload) {
   const errors = [];
   if (!payload.orderItems || payload.orderItems.length === 0) errors.push("At least one order item required");
   if (!payload.orderType || !['Dine-in', 'Take-out', 'Delivery'].includes(payload.orderType)) {
