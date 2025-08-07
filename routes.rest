@@ -1,22 +1,17 @@
-### Get all contacts
-GET cse-341-project1-0cop.onrender.com/contacts
+### Get all contacts 
+GET https://cse-341-project1-0cop.onrender.com/contacts
+
 ### Get all tasks
-GET cse-341-project1-0cop.onrender.com/tasks
-
-### Get all menu
-GET cse-341-project1-0cop.onrender.com/menu
-
-### Get all orders
-GET cse-341-project1-0cop.onrender.com/orders
+GET https://cse-341-project1-0cop.onrender.com/tasks
 
 ### Get contact by ID
-GET cse-341-project1-0cop.onrender.com/contacts/688197a2ec3697314883aa48
+GET https://cse-341-project1-0cop.onrender.com/contacts/688197a2ec3697314883aa48
 
-### Get taks by ID
-GET cse-341-project1-0cop.onrender.com/tasks/68857044648d07b41e2225a7
+### Get task by ID
+GET https://cse-341-project1-0cop.onrender.com/tasks/68857044648d07b41e2225a7
 
 ### Create contact
-POST cse-341-project1-0cop.onrender.com/contacts
+POST https://cse-341-project1-0cop.onrender.com/contacts
 Content-Type: application/json
 
 {
@@ -28,7 +23,7 @@ Content-Type: application/json
 }
 
 ### Create task
-POST cse-341-project1-0cop.onrender.com/tasks
+POST https://cse-341-project1-0cop.onrender.com/tasks
 Content-Type: application/json
 
 {
@@ -40,11 +35,10 @@ Content-Type: application/json
   "status": "In Progress",
   "createdAt": "2025-06-19",
   "updatedAt": "2025-06-18"
-
 }
 
 ### Update contact
-PUT cse-341-project1-0cop.onrender.com/contacts/688197a2ec3697314883aa48
+PUT https://cse-341-project1-0cop.onrender.com/contacts/688197a2ec3697314883aa48
 Content-Type: application/json
 
 {
@@ -55,8 +49,8 @@ Content-Type: application/json
   "birthday": "2000-12-31"
 }
 
-### Update tasks
-PUT cse-341-project1-0cop.onrender.com/tasks/68856cd5648d07b41e2225a5
+### Update task
+PUT https://cse-341-project1-0cop.onrender.com/tasks/68856cd5648d07b41e2225a5
 Content-Type: application/json
 
 {
@@ -68,11 +62,82 @@ Content-Type: application/json
   "status": "In Progress",
   "createdAt": "2025-06-19",
   "updatedAt": "2025-06-18"
-
 }
 
 ### Delete contact
-DELETE cse-341-project1-0cop.onrender.com/contacts/68856cd5648d07b41e2225a5
+DELETE https://cse-341-project1-0cop.onrender.com/contacts/68856cd5648d07b41e2225a5
 
+### =============================
+###        MENU ENDPOINTS
+### =============================
+
+### Get all menu items
+GET https://cse-341-project1-0cop.onrender.com/menu
+
+### Get menu item by ID (Chicken Adobo)
+GET https://cse-341-project1-0cop.onrender.com/menu/6893e0e36db43b4eaf889379
+
+### Create new menu item
+POST https://cse-341-project1-0cop.onrender.com/menu
+Content-Type: application/json
+
+{
+  "name": "Grilled Tilapia",
+  "description": "Freshwater fish grilled to perfection.",
+  "imageUrl": "https://example.com/tilapia.jpg",
+  "price": 80,
+  "category": "Main",
+  "servingSize": "1 whole fish"
+}
+
+### Update menu item (Beef Kare-Kare)
+PUT https://cse-341-project1-0cop.onrender.com/menu/6893e0e36db43b4eaf88937a
+Content-Type: application/json
+
+{
+  "name": "Beef Kare-Kare",
+  "description": "Updated peanut-based beef stew with vegetables.",
+  "imageUrl": "https://example.com/karekare-updated.jpg",
+  "price": 95,
+  "category": "Main",
+  "servingSize": "1 bowl"
+}
+
+### Delete menu item (Chicken Adobo)
+DELETE https://cse-341-project1-0cop.onrender.com/menu/6893e0e36db43b4eaf889379
+
+### =============================
+###        ORDER ENDPOINTS
+### =============================
+
+### Get all orders
+GET https://cse-341-project1-0cop.onrender.com/order
+
+### Get order by ID (Preparing)
+GET https://cse-341-project1-0cop.onrender.com/order/6893e0c46db43b4eaf88936f
+
+### Create new order
+POST https://cse-341-project1-0cop.onrender.com/order
+Content-Type: application/json
+
+{
+  "orderItems": ["Chicken Adobo", "Turon"],
+  "orderStatus": "Preparing",
+  "orderType": "Dine-in"
+}
+
+### Update order status (Take-out to Preparing)
+PUT https://cse-341-project1-0cop.onrender.com/order/6893e0c46db43b4eaf889370
+Content-Type: application/json
+
+{
+  "orderStatus": "Preparing"
+}
+
+### Delete order
+DELETE https://cse-341-project1-0cop.onrender.com/order/6893e0c46db43b4eaf889370
+
+### =============================
 ### Swagger docs
-GET cse-341-project1-0cop.onrender.com/api-docs
+### =============================
+GET https://cse-341-project1-0cop.onrender.com/api-docs
