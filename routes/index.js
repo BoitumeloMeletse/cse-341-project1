@@ -15,7 +15,7 @@ router.use('/tasks', require('./tasks'));
 router.use('/menu', require('./menu'));
 
 // orders routes
-router.use('/orders', require('./orders')); // Changed from '/order' to '/orders' for consistency
+router.use('/order', require('./orders'));
 
 // login with GitHub
 router.get('/login', passport.authenticate('github'));
