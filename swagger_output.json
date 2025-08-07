@@ -226,7 +226,7 @@
     },
     "/order": {
       "get": {
-        "tags": ["Order"],
+        "tags": ["Orders"],
         "summary": "Get all orders",
         "responses": {
           "200": {
@@ -239,37 +239,37 @@
         }
       },
       "post": {
-        "tags": ["Order"],
+        "tags": ["Orders"],
         "summary": "Create a new order",
         "parameters": [
           {
             "in": "body",
             "name": "body",
             "required": true,
-            "schema": { "$ref": "#/definitions/Order" }
+            "schema": { "$ref": "#/definitions/Orders" }
           }
         ],
         "responses": {
-          "201": { "description": "Order created" }
+          "201": { "description": "Orders created" }
         }
       }
     },
     "/order/{id}": {
       "get": {
-        "tags": ["Order"],
+        "tags": ["Orders"],
         "summary": "Get order by ID",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" }
         ],
         "responses": {
           "200": {
-            "description": "Order details",
+            "description": "Orders details",
             "schema": { "$ref": "#/definitions/Order" }
           }
         }
       },
       "put": {
-        "tags": ["Order"],
+        "tags": ["Orders"],
         "summary": "Update order status by ID",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" },
@@ -350,7 +350,7 @@
       },
       "required": ["name", "price"]
     },
-    "Order": {
+    "Orders": {
       "type": "object",
       "properties": {
         "orderItems": {
