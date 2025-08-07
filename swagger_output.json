@@ -224,7 +224,7 @@
         }
       }
     },
-    "/order": {
+    "/orders": {
       "get": {
         "tags": ["Orders"],
         "summary": "Get all orders",
@@ -246,15 +246,15 @@
             "in": "body",
             "name": "body",
             "required": true,
-            "schema": { "$ref": "#/definitions/Orders" }
+            "schema": { "$ref": "#/definitions/Order" }
           }
         ],
         "responses": {
-          "201": { "description": "Orders created" }
+          "201": { "description": "Order created" }
         }
       }
     },
-    "/order/{id}": {
+    "/orders/{id}": {
       "get": {
         "tags": ["Orders"],
         "summary": "Get order by ID",
@@ -263,37 +263,29 @@
         ],
         "responses": {
           "200": {
-            "description": "Orders details",
+            "description": "Order details",
             "schema": { "$ref": "#/definitions/Order" }
           }
         }
       },
       "put": {
         "tags": ["Orders"],
-        "summary": "Update order status by ID",
+        "summary": "Update order by ID",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" },
           {
             "in": "body",
             "name": "body",
             "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "orderStatus": {
-                  "type": "string",
-                  "enum": ["Preparing", "Completed"]
-                }
-              }
-            }
+            "schema": { "$ref": "#/definitions/Order" }
           }
         ],
         "responses": {
-          "200": { "description": "Order status updated" }
+          "200": { "description": "Order updated" }
         }
       },
       "delete": {
-        "tags": ["Order"],
+        "tags": ["Orders"],
         "summary": "Delete order by ID",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" }
@@ -328,14 +320,7 @@
         "createdAt": { "type": "string", "format": "date-time" },
         "updatedAt": { "type": "string", "format": "date-time" }
       },
-      "required": [
-        "title",
-        "description",
-        "assignedTo",
-        "dueDate",
-        "priority",
-        "status"
-      ]
+      "required": ["title", "description", "assignedTo", "dueDate", "priority", "status"]
     },
     "Menu": {
       "type": "object",
@@ -350,7 +335,7 @@
       },
       "required": ["name", "price"]
     },
-    "Orders": {
+    "Order": {
       "type": "object",
       "properties": {
         "orderItems": {
