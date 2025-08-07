@@ -3,6 +3,12 @@ GET cse-341-project1-0cop.onrender.com/contacts
 ### Get all tasks
 GET cse-341-project1-0cop.onrender.com/tasks
 
+### Get all menu
+GET cse-341-project1-0cop.onrender.com/menu
+
+### Get all orders
+GET cse-341-project1-0cop.onrender.com/orders
+
 ### Get contact by ID
 GET cse-341-project1-0cop.onrender.com/contacts/688197a2ec3697314883aa48
 

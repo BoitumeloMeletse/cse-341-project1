@@ -1,7 +1,6 @@
+// routes/index.js
 const router = require('express').Router();
 const passport = require('passport');
-const contactRoutes = require('./contacts');
-const taskRoutes = require('./tasks');
 
 // swagger routes
 router.use('/', require('./swagger'));
@@ -11,6 +10,12 @@ router.use('/contacts', require('./contacts'));
 
 // tasks routes
 router.use('/tasks', require('./tasks'));
+
+// menu routes - make sure this line is correct
+router.use('/menu', require('./menu'));
+
+// orders routes
+router.use('/orders', require('./orders')); // Changed from '/order' to '/orders' for consistency
 
 // login with GitHub
 router.get('/login', passport.authenticate('github'));

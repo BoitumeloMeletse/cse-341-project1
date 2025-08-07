@@ -38,7 +38,32 @@ app
     .use(cors({ origin: 'https://cse-341-project1-0cop.onrender.com'}))
     .use("/", require('./routes/index.js'));
 
-
+    app
+    .use(bodyParser.json())
+    .use(session({
+      secret: "secret",
+      resave: false,
+      saveUninitialized: true,
+    }))
+    .use(passport.initialize())
+    .use(passport.session())
+    .use((req, res, next) => {
+      res.setHeader("Access-Control-Allow-Origin", '*');
+      res.setHeader(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Z-Key, Authorization"
+      );
+      res.setHeader(
+        "Access-Control-Allow-Methods",
+        "POST, GET, PUT, PATCH, OPTIONS, DELETE"
+      );
+      next();
+    })
+    .use(cors({ 
+      methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
+      origin: ['https://cse-341-project1-0cop.onrender.com']
+    }))
+    .use("/", require('./routes'));
 
     passport.use(new GitHubStrategy({
         clientID: process.env.GITHUB_CLIENT_ID,
