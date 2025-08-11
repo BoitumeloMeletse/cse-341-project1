@@ -1,13 +1,13 @@
-const Payment = require('../models/payment');
-const { Types } = require('mongoose');
+const { ObjectId } = require("mongodb");
+const mongodb = require("../data/database");
+const Payment = require("../models/payment");
 
 async function getAll(req, res) {
   try {
-    const payments = await Payment.find().populate('orderId');
-    res.json(payments);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Failed to retrieve payments' });
+    const payments = await mongodb.getDatabase().collection("payments").find().toArray();
+    res.status(200).json(payments);
+  } catch {
+    res.status(500).json({ error: "Failed to retrieve payments" });
   }
 }
 

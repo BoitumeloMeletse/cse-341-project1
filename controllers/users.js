@@ -1,13 +1,13 @@
-const User = require('../models/user');
-const { Types } = require('mongoose');
+const { ObjectId } = require("mongodb");
+const mongodb = require("../data/database");
+const User = require("../models/user");
 
 async function getAll(req, res) {
   try {
-    const users = await User.find();
-    res.json(users);
-  } catch (err) {
-    console.error('Error retrieving users:', err); 
-    res.status(500).json({ error: 'Failed to retrieve users' });
+    const users = await mongodb.getDatabase().collection("users").find().toArray();
+    res.status(200).json(users);
+  } catch {
+    res.status(500).json({ error: "Failed to retrieve users" });
   }
 }
 
