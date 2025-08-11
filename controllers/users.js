@@ -6,7 +6,7 @@ async function getAll(req, res) {
     const users = await User.find();
     res.json(users);
   } catch (err) {
-    console.error(err);
+    console.error('Error retrieving users:', err); 
     res.status(500).json({ error: 'Failed to retrieve users' });
   }
 }
