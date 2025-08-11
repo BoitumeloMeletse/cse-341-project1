@@ -17,6 +17,11 @@ router.use('/menu', require('./menu'));
 // orders routes
 router.use('/orders', require('./orders'));
 
+router.use('/users', require('./users'));
+
+router.use('/payments', require('./payments'));
+
+
 // login with GitHub
 router.get('/login', passport.authenticate('github'));
 

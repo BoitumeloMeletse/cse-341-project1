@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const ordersController = require("../controllers/orders");
+const { isAuthenticated } = require("../middleware/authenticate");
 
-const{ isAuthenticated } = require("../middleware/authenticate");
-
-// GET all order
+// GET all orders
 router.get("/", ordersController.getAll);
 
 // GET single order

@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Contacts, Tasks, Menu & Orders API",
-    "description": "API for managing contacts, tasks, food menu, and orders with CRUD operations.",
+    "title": "Contacts, Tasks, Menu, Orders, Users & Payments API",
+    "description": "API for managing contacts, tasks, food menu, orders, users, and payments with CRUD operations.",
     "version": "1.0.0"
   },
   "host": "cse-341-project1-0cop.onrender.com",
@@ -10,6 +10,14 @@
   "schemes": ["https"],
   "consumes": ["application/json"],
   "produces": ["application/json"],
+  "tags": [
+    { "name": "Contacts", "description": "Operations about contacts" },
+    { "name": "Tasks", "description": "Operations about tasks" },
+    { "name": "Menu", "description": "Operations about menu items" },
+    { "name": "Orders", "description": "Operations about orders" },
+    { "name": "Users", "description": "Operations about users" },
+    { "name": "Payments", "description": "Operations about payments" }
+  ],
   "paths": {
     "/contacts": {
       "get": {
@@ -294,6 +302,148 @@
           "200": { "description": "Order deleted" }
         }
       }
+    },
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get all users",
+        "responses": {
+          "200": {
+            "description": "A list of users",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/User" }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a new user",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/User" }
+          }
+        ],
+        "responses": {
+          "201": { "description": "User created" }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get user by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "200": {
+            "description": "User details",
+            "schema": { "$ref": "#/definitions/User" }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Users"],
+        "summary": "Update user by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/User" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "User updated" }
+        }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "summary": "Delete user by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "200": { "description": "User deleted" }
+        }
+      }
+    },
+    "/payments": {
+      "get": {
+        "tags": ["Payments"],
+        "summary": "Get all payments",
+        "responses": {
+          "200": {
+            "description": "A list of payments",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Payment" }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Payments"],
+        "summary": "Create a new payment",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Payment" }
+          }
+        ],
+        "responses": {
+          "201": { "description": "Payment created" }
+        }
+      }
+    },
+    "/payments/{id}": {
+      "get": {
+        "tags": ["Payments"],
+        "summary": "Get payment by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "200": {
+            "description": "Payment details",
+            "schema": { "$ref": "#/definitions/Payment" }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Payments"],
+        "summary": "Update payment by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Payment" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Payment updated" }
+        }
+      },
+      "delete": {
+        "tags": ["Payments"],
+        "summary": "Delete payment by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "200": { "description": "Payment deleted" }
+        }
+      }
     }
   },
   "definitions": {
@@ -353,6 +503,27 @@
         "createdAt": { "type": "string", "format": "date-time" }
       },
       "required": ["orderItems", "orderType"]
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "username": { "type": "string" },
+        "email": { "type": "string" },
+        "password": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "user", "guest"] }
+      },
+      "required": ["username", "email", "password"]
+    },
+    "Payment": {
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "amount": { "type": "number" },
+        "currency": { "type": "string" },
+        "paymentDate": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["Pending", "Completed", "Failed"] }
+      },
+      "required": ["userId", "amount", "currency", "paymentDate", "status"]
     }
   }
 }
