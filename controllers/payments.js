@@ -13,10 +13,14 @@ async function getAll(req, res) {
 
 async function getSingle(req, res) {
   const { id } = req.params;
-  if (!Types.ObjectId.isValid(id)) return res.status(400).json({ error: 'Invalid ID' });
-  const payment = await Payment.findById(id).populate('orderId');
-  if (!payment) return res.status(404).json({ error: 'Payment not found' });
-  res.json(payment);
+  if (!ObjectId.isValid(id)) return res.status(400).json({ error: "Invalid ID" });
+  try {
+    const payment = await mongodb.getDatabase().collection("payments").findOne({ _id: new ObjectId(id) });
+    if (!payment) return res.status(404).json({ error: "Payments not found" });
+    res.status(200).json(payment);
+  } catch {
+    res.status(500).json({ error: "Error retrieving payments" });
+  }
 }
 
 async function createPayment(req, res) {

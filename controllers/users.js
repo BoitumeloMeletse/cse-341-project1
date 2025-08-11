@@ -13,10 +13,14 @@ async function getAll(req, res) {
 
 async function getSingle(req, res) {
   const { id } = req.params;
-  if (!Types.ObjectId.isValid(id)) return res.status(400).json({ error: 'Invalid ID' });
-  const user = await User.findById(id);
-  if (!user) return res.status(404).json({ error: 'User not found' });
-  res.json(user);
+  if (!ObjectId.isValid(id)) return res.status(400).json({ error: "Invalid ID" });
+  try {
+    const user = await mongodb.getDatabase().collection("users").findOne({ _id: new ObjectId(id) });
+    if (!user) return res.status(404).json({ error: "User not found" });
+    res.status(200).json(user);
+  } catch {
+    res.status(500).json({ error: "Error retrieving user" });
+  }
 }
 
 async function createUser(req, res) {
