@@ -5,6 +5,9 @@ function isAuthenticated(req, res, next) {
   // Fallback to session user
   if (req.session && req.session.user) return next();
 
+  // Check for API key in headers
+  if (req.headers['x-api-key'] === process.env.API_KEY) return next();
+
   return res.status(401).json({ error: "Not authenticated" });
 }
 
@@ -15,7 +18,7 @@ function hasRole(roles = []) {
 
     if (!roles.length) return next(); // If no roles, only authentication check
 
-    const userRole = user.role || "customer";
+    const userRole = user.role || "guest";
 
     if (roles.includes(userRole)) return next();
 
@@ -24,3 +27,4 @@ function hasRole(roles = []) {
 }
 
 module.exports = { isAuthenticated, hasRole };
+

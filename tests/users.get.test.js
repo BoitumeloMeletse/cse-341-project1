@@ -1,40 +1,41 @@
 const request = require('supertest');
-const mongoose = require('mongoose');
-const app = require('../server'); // make server exportable (see note below)
-const User = require('../models/user');
+const app = require('../server');
+const { getDatabase } = require('../data/database');
 
-beforeAll(async () => {
-  await mongoose.connect(process.env.MONGODB_URL_TEST || 'mongodb://localhost:27017/testdb', { useNewUrlParser: true, useUnifiedTopology: true });
-  await User.deleteMany();
-  await User.create({ displayName: 'Test User', email: 't@test.com', role: 'customer' });
-});
-
-afterAll(async () => {
-  await mongoose.disconnect();
-});
-
-describe('Users GET endpoints', () => {
-  test('GET /users -> 200 and returns array', async () => {
-    const res = await request(app).get('/users');
-    expect(res.statusCode).toBe(200);
-    expect(Array.isArray(res.body)).toBe(true);
+describe('User API', () => {
+  beforeAll(async () => {
+    // Connect to test database
+    await getDatabase();
   });
 
-  test('GET /users/:id -> 200 for existing user', async () => {
-    const u = await User.findOne();
-    const res = await request(app).get(`/users/${u._id}`);
-    expect(res.statusCode).toBe(200);
-    expect(res.body.displayName).toBe(u.displayName);
+  describe('GET /users', () => {
+    it('should return all users', async () => {
+      const res = await request(app).get('/users');
+      expect(res.statusCode).toEqual(200);
+      expect(Array.isArray(res.body)).toBeTruthy();
+    });
   });
 
-  test('GET /users/:id -> 400 for invalid id', async () => {
-    const res = await request(app).get('/users/invalid-id');
-    expect(res.statusCode).toBe(400);
-  });
+  describe('GET /users/:id', () => {
+    it('should return a user with valid ID', async () => {
+      // First get a valid ID from the database
+      const users = await request(app).get('/users');
+      const validId = users.body[0]._id;
+      
+      const res = await request(app).get(`/users/${validId}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body).toHaveProperty('_id', validId);
+    });
 
-  test('GET /users/:id -> 404 for not-found id', async () => {
-    const fakeId = mongoose.Types.ObjectId();
-    const res = await request(app).get(`/users/${fakeId}`);
-    expect(res.statusCode).toBe(404);
+    it('should return 400 for invalid ID format', async () => {
+      const res = await request(app).get('/users/invalid-id');
+      expect(res.statusCode).toEqual(400);
+    });
+
+    it('should return 404 for non-existent user', async () => {
+      const nonExistentId = '507f1f77bcf86cd799439011'; // Valid but non-existent ID
+      const res = await request(app).get(`/users/${nonExistentId}`);
+      expect(res.statusCode).toEqual(404);
+    });
   });
 });

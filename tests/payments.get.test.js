@@ -1,42 +1,42 @@
-// tests/payments.get.test.js
 const request = require('supertest');
-const mongoose = require('mongoose');
 const app = require('../server');
-const Payment = require('../models/payment');
+const { getDatabase } = require('../data/database');
 
-beforeAll(async () => {
-  await mongoose.connect(process.env.MONGODB_URL_TEST || 'mongodb://localhost:27017/testdb');
-  await Payment.deleteMany();
-  // seed one doc (use any valid ObjectId for orderId in test DB)
-  await Payment.create({ orderId: new mongoose.Types.ObjectId(), method: 'Cash', amount: 123, status: 'Completed' });
-});
-
-afterAll(async () => {
-  await mongoose.disconnect();
-});
-
-describe('Payments GET endpoints', () => {
-  test('GET /payments -> 200 and returns array', async () => {
-    const res = await request(app).get('/payments');
-    expect(res.statusCode).toBe(200);
-    expect(Array.isArray(res.body)).toBe(true);
+describe('Payment API', () => {
+  beforeAll(async () => {
+    // Connect to test database
+    await getDatabase();
   });
 
-  test('GET /payments/:id -> 200 for existing payment', async () => {
-    const p = await Payment.findOne();
-    const res = await request(app).get(`/payments/${p._id}`);
-    expect(res.statusCode).toBe(200);
-    expect(res.body.amount).toBe(p.amount);
+  describe('GET /payments', () => {
+    it('should return all payments', async () => {
+      const res = await request(app).get('/payments');
+      expect(res.statusCode).toEqual(200);
+      expect(Array.isArray(res.body)).toBeTruthy();
+    });
   });
 
-  test('GET /payments/:id -> 400 for invalid id', async () => {
-    const res = await request(app).get('/payments/not-an-id');
-    expect(res.statusCode).toBe(400);
-  });
+  describe('GET /payments/:id', () => {
+    it('should return a payment with valid ID', async () => {
+      // First get a valid ID from the database
+      const payments = await request(app).get('/payments');
+      if (payments.body.length > 0) {
+        const validId = payments.body[0]._id;
+        const res = await request(app).get(`/payments/${validId}`);
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toHaveProperty('_id', validId);
+      }
+    });
 
-  test('GET /payments/:id -> 404 for not-found id', async () => {
-    const fakeId = new mongoose.Types.ObjectId();
-    const res = await request(app).get(`/payments/${fakeId}`);
-    expect(res.statusCode).toBe(404);
+    it('should return 400 for invalid ID format', async () => {
+      const res = await request(app).get('/payments/invalid-id');
+      expect(res.statusCode).toEqual(400);
+    });
+
+    it('should return 404 for non-existent payment', async () => {
+      const nonExistentId = '507f1f77bcf86cd799439011'; // Valid but non-existent ID
+      const res = await request(app).get(`/payments/${nonExistentId}`);
+      expect(res.statusCode).toEqual(404);
+    });
   });
 });

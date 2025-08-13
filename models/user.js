@@ -1,13 +1,14 @@
-const mongoose = require("mongoose");
+class User {
+  static validatePayload(payload) {
+    const errors = [];
+    if (!payload.username) errors.push("Username is required");
+    if (!payload.email) errors.push("Email is required");
+    if (!payload.password) errors.push("Password is required");
+    if (payload.role && !["admin", "user", "guest"].includes(payload.role)) {
+      errors.push("Role must be one of: admin, user, guest");
+    }
+    return errors;
+  }
+}
 
-const userSchema = new mongoose.Schema(
-  {
-    firstName: { type: String, required: true, trim: true },
-    lastName: { type: String, required: true, trim: true },
-    email: { type: String, required: true, trim: true, unique: true },
-    role: { type: String, enum: ["admin", "customer"], default: "customer" }
-  },
-  { timestamps: true }
-);
-
-module.exports = mongoose.model("User", userSchema);
+module.exports = User;
