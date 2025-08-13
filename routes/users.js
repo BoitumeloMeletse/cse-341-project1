@@ -1,24 +1,15 @@
-const express = require("express")
-const router = express.Router()
-const ctrl = require("../controllers/users")
-const { isAuthenticated, hasRole } = require("../middleware/authenticate")
+const express = require('express');
+const router = express.Router();
+const ctrl = require('../controllers/users');
+const { isAuthenticated } = require('../middleware/authenticate');
 
-// GET all users - public access
-router.get("/", ctrl.getAll)
+// Public GET routes
+router.get('/', ctrl.getAll);
+router.get('/:id', ctrl.getSingle);
 
-// GET single user - public access
-router.get("/:id", ctrl.getSingle)
+// Authenticated routes (no role restriction)
+router.post('/', isAuthenticated, ctrl.createUser);
+router.put('/:id', isAuthenticated, ctrl.updateUser);
+router.delete('/:id', isAuthenticated, ctrl.deleteUser);
 
-// POST create user (test route) - no authentication required
-router.post("/test", ctrl.createUser)
-
-// POST create user - admin only
-router.post("/", isAuthenticated, hasRole(["admin"]), ctrl.createUser)
-
-// PUT update user - admin only
-router.put("/:id", isAuthenticated, hasRole(["admin"]), ctrl.updateUser)
-
-// DELETE user - admin only
-router.delete("/:id", isAuthenticated, hasRole(["admin"]), ctrl.deleteUser)
-
-module.exports = router
+module.exports = router;

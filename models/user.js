@@ -1,18 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
-  displayName: { type: String, required: true },
-  email: { type: String },
-  role: { type: String, enum: ['customer', 'kitchen', 'cashier', 'admin'], default: 'customer' },
-  githubId: { type: String }
-}, { timestamps: true });
+const userSchema = new mongoose.Schema(
+  {
+    firstName: { type: String, required: true, trim: true },
+    lastName: { type: String, required: true, trim: true },
+    email: { type: String, required: true, trim: true, unique: true },
+    role: { type: String, enum: ["admin", "customer"], default: "customer" }
+  },
+  { timestamps: true }
+);
 
-// validation helper for controllers (minimal)
-userSchema.statics.validatePayload = function(payload) {
-  const errors = [];
-  if (!payload.displayName) errors.push('displayName is required');
-  if (payload.role && !['customer','kitchen','cashier','admin'].includes(payload.role)) errors.push('Invalid role');
-  return errors;
-};
-
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);
