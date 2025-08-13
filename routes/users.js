@@ -13,12 +13,12 @@ router.get("/:id", ctrl.getSingle)
 router.post("/test", ctrl.createUser)
 
 // POST create user - admin only
-router.post("/", isAuthenticated, ctrl.createUser)
+router.post("/", isAuthenticated, hasRole(["user"]), ctrl.createUser)
 
 // PUT update user - admin only
-router.put("/:id", isAuthenticated, ctrl.updateUser)
+router.put("/:id", isAuthenticated, hasRole(["user"]), ctrl.updateUser)
 
 // DELETE user - admin only
-router.delete("/:id", isAuthenticated, ctrl.deleteUser)
+router.delete("/:id", isAuthenticated, hasRole(["user"]), ctrl.deleteUser)
 
 module.exports = router
